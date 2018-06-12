@@ -46,10 +46,15 @@
       </tr>
 
       <tr>
+            <td>{{'HostConfig'|translate}}</td>
+            <td>{{container.HostConfig.PortBindings}}</td>
+      </tr>
+
+      <tr>
         <td>{{'created'|translate}}</td>
         <td>{{container.Created}}</td>
       </tr>
-
+                  
       <tr>
         <td>{{'running'|translate}}</td>
         <td>{{container.State.Running | boolean_to_string}}</td>

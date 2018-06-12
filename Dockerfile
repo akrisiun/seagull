@@ -8,7 +8,7 @@ RUN apk add -U git\
     && rm -rf /var/cache/apk/* /tmp/*
 
 # Build seagull
-Add . /go/src/github.com/tobegit3hub/seagull/
+ADD . /go/src/github.com/tobegit3hub/seagull/
 WORKDIR /go/src/github.com/tobegit3hub/seagull/
 RUN go build seagull.go
 

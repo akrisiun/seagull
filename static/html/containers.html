@@ -4,7 +4,9 @@
 
   <span class="page-header">
     <!-- Display containers title and the JSON link -->
-    <h1 class="page-header-left">{{'containers'|translate}} <a ng-href="{{canonicalServer}}/containers/json?all=1" target="_blank"><img src="static/img/json-logo.png" height="32"></a></h1>
+    <h1 class="page-header-left">{{'containers'|translate}} 
+      <a ng-href="{{canonicalServer}}/containers/json?all=1" target="_blank">
+         <img src="static/img/json-logo.png" height="32"></a></h1>
 
     <!-- Display search form in the right -->
     <div class="page-header-right">
@@ -38,7 +40,12 @@
         <th><a href="" ng-click="predicate='Names'; reverse=!reverse">{{'names'|translate}}</a></th>
         <th><a href="" ng-click="predicate='Image'; reverse=!reverse">{{'image'|translate}}</a></th>
         <th><a href="" ng-click="predicate='Command'; reverse=!reverse">{{'command'|translate}}</a></th>
-        <th><a href="" ng-click="predicate='Ports'; reverse=!reverse">{{'ports'|translate}}</a></th>
+        <th><a href="" ng-click="predicate='Ports'; reverse=!reverse">
+          <div style="min-width: 190px;">
+            {{'ports'|translate}}
+          </div>
+        </a>
+        </th>
         <!-- Not print this now, <th>{{'created'|translate}}</th> -->
         <th><a href="" ng-click="predicate='Status'; reverse=!reverse">{{'status'|translate}}</a></th>
         <th>{{'operation'|translate}}</th>
@@ -48,7 +55,7 @@
     <tbody>
       <!-- When search result is null, display the message -->
       <tr ng-show="(containers | filter: search).length == 0">
-	<td colspan="7" align="center">{{'no_search_result_for'|translate}} <b style="color:blue">{{search}}</b></td>
+    	<td colspan="7" align="center">{{'no_search_result_for'|translate}} <b style="color:blue">{{search}}</b></td>
       </tr>
 
       <tr ng-repeat="container in containers | filter: search | orderBy:predicate:reverse track by $index">
@@ -56,17 +63,23 @@
         <td class="wrap-td" title="{{container.Names | array_to_string}}">{{container.Names | array_to_string}}</td> <!-- Add comma between names -->
         <td class="wrap-td" title="{{container.Image}}">{{container.Image}}</td>
         <td class="wrap-td" title="{{container.Command}}">{{container.Command}}</td>
-        <td class="wrap-td" title="{{printPorts(container.Ports)}}">{{printPorts(container.Ports)}}</td>
+        <td class="wrap-td" title="{{printPorts(container.Ports)}}">
+            {{printPorts(container.Ports)}}
+        </td>
+
         <!-- Not print this now, <td>{{container.Created * 1000 | date:'yyyy-MM-dd'}}</td>  Full time with 'yyyy-MM-dd HH:mm:ss Z' -->
         <td class="wrap-td" title="{{container.Status}}">{{container.Status}}</td>
         <!-- If the container is running, display stop button -->
-        <td ng-show="checkRunning(container)"><button class="btn btn-warning" ng-click="stopContainer(container.Id)">{{'stop'|translate}}</button></td>
+        <td ng-show="checkRunning(container)">
+          <button class="btn btn-warning" ng-click="stopContainer(container.Id)">{{'stop'|translate}}</button></td>
         <!-- Else display start button -->
-        <td ng-show="!checkRunning(container)"><button class="btn btn-success" ng-click="startContainer(container.Id)">{{'start'|translate}}</button>
+        <td ng-show="!checkRunning(container)">
+          <button class="btn btn-success" ng-click="startContainer(container.Id)">{{'start'|translate}}</button>
           <!-- If the container is running, display nothing -->
           <span ng-show="checkRunning(container)"></span>
           <!-- Else display delete button -->
-          <span ng-show="!checkRunning(container)">&nbsp;&nbsp;<button class="btn btn-danger" ng-click="deleteContainer(container.Id)">{{'delete'|translate}}</button></span>
+          <span ng-show="!checkRunning(container)">&nbsp;&nbsp;<button class="btn btn-danger" 
+                ng-click="deleteContainer(container.Id)">{{'delete'|translate}}</button></span>
 	</td>
       </tr>
     </tbody>
